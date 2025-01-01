@@ -1,26 +1,59 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 using namespace std;
 
-int main() {
-    
-    cout << "test from c--" << endl;
-    // is this even how you print lmao
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 800;
 
-    // YES I THINK SO
-    // Undefined symbols for architecture x86_64:
-    // WHAT
-    // HELP OIJJOIJSODFJSFJ
+void draw(SDL_Renderer* renderer) {
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255); // background
+    SDL_RenderPresent(renderer);
+}
 
-    // wait eric the code is on your pc i can't compile
-    // idk how this works lmfao
-    // aidahwdiahwdiawihdisfudofljshdusidiwiedsuohshihiahwidhiwahidhsljicjdifjijaidjiawjdjaiwjdijasjifjjdijijc
+int main(int argc, char* argv[]) {
+    if (SDL_Init(SDL_INIT_VIDEO) > 0) {
+        cout << "We're cooked (can't even initialize the god damn library)" << endl;
+    }
+	if (!(IMG_Init(IMG_INIT_PNG)))
+		cout << "We're cooked 1.1 (Image initialization failed): " << SDL_GetError() << endl;
+	if (!(TTF_Init()))
+		cout << "We're cooked 1.2 (TTF initialization failed): " << SDL_GetError() << endl;
 
-    // hold on I ma erroring when compiling too what happened 
-    // whats wrong with int main() lol
-    // I could compile before
-    // :(
-    // help lmfao clang clang clang
-    // i can see your terminal lol
-    // LOLLLLLLLL]
+    SDL_Window* window = SDL_CreateWindow("Chef Like Engineers (Mech + EngSci 2T8)",
+                                          SDL_WINDOWPOS_CENTERED,
+                                          SDL_WINDOWPOS_CENTERED,
+                                          SCREEN_WIDTH, SCREEN_HEIGHT,
+                                          SDL_WINDOW_SHOWN);
+
+    if (!window) {
+        cout << "We're cooked 2.0 (can't load window): " << SDL_GetError() << endl;
+    }
+
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    if (!renderer) {
+        cout << "We're cooked 3.0 (Can't load the randerer)" << SDL_GetError() << endl;
+    }
+
+    bool run = true;
+    SDL_Event event;
+
+    while (run) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                run = false;
+            }
+        }
+        draw(renderer);
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
     return 0;
 }
