@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     if (!renderer) {
-        cout << "We're cooked 3.0 (Can't load the randerer)" << SDL_GetError() << endl;
+        cout << "We're cooked 3.0 (can't load the renderer)" << SDL_GetError() << endl;
     }
 
     bool run = true;
