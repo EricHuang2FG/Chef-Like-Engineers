@@ -1,3 +1,4 @@
+#pragma once
 #ifdef WINDOWS
   #define SDL_MAIN_HANDLED
   #include <SDL.h>
@@ -13,9 +14,10 @@
 #endif 
 
 #include <iostream>
+#include <GameObject.h>
 using namespace std;
 
-class Player {
+class Player: public GameObject {
     private:
         int x, y;
         int width, height;
