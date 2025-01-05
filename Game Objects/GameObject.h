@@ -13,7 +13,7 @@
 #endif 
 
 #include <iostream>
-#include "Constants.h"
+#include "../Constants.h"
 using namespace std;
 
 class GameObject {

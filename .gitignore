@@ -12,7 +12,7 @@ run.sh
 a.exe
 
 # mac output
-main.exe
+main.out
 
 # windows dll files
 SDL2_image.dll

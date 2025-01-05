@@ -17,7 +17,7 @@
 using namespace std;
 
 Player::Player(SDL_Renderer* renderer, int x, int y, int width, int height, int vx, int vy, float scale, string imageBasePath)
-    : GameObject(renderer, x, y, width, height, vx, vy, scale), imageBasePath(imageBasePath) {
+    : GameObject(renderer, x, y, width, height, vx, vy, scale), imageBasePath(imageBasePath), currImageDisplayedFrameCount(0),  FRAMES_PER_IMAGE(30), angle(0.0f) {
         textureImage1 = loadImage(imageBasePath + "1.png");
         textureImage2 = loadImage(imageBasePath + "2.png");
         currTexture = textureImage1;

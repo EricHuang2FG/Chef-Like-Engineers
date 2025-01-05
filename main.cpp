@@ -12,7 +12,7 @@
 #endif 
 
 #include "GameManager.h"
-#include "Player.h"
+#include "Game Objects/Player.h"
 #include "Constants.h"
 #include <iostream>
 #include "States/TestStateA.h"
