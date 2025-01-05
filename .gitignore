@@ -5,8 +5,14 @@
 # tait's run command
 run.bat
 
+# eric's run command
+run.sh
+
 # windows output
 a.exe
+
+# mac output
+main.exe
 
 # windows dll files
 SDL2_image.dll
