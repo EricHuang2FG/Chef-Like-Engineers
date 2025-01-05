@@ -5,7 +5,6 @@
   #include <SDL_image.h>
   #include <SDL_ttf.h>
   #include <SDL_mixer.h>
-  #include <iostream>
 #else
   #include <SDL2/SDL.h>
   #include <SDL2/SDL_image.h>
@@ -13,14 +12,25 @@
   #include <SDL2/SDL_mixer.h>
 #endif 
 
+#include "GameObject.h"
 #include <iostream>
-#include <GameObject.h>
+#include <string>
 using namespace std;
 
 class Player: public GameObject {
     private:
-        int x, y;
-        int width, height;
-        SDL_Texture* texture;
-        SDL_Renderer* renderer;
+        SDL_Texture* textureImage1;
+        SDL_Texture* textureImage2;
+        SDL_Texture* currTexture;
+        string imageBasePath;
+        int currImageDisplayedFrameCount = 0;
+        const int FRAMES_PER_IMAGE = 30;
+        float angle = 0.0; // points to the top of the screen
+    
+    public:
+        Player(SDL_Renderer* renderer, int x = SCREEN_WIDTH / 2, int y = SCREEN_HEIGHT / 2, int width = 50, int height = 50, int vx = 0, int vy = 0, float scale = 1.0, string imageBasePath = "");
+        
+        ~Player();
+
+        void draw();
 };

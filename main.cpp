@@ -12,17 +12,17 @@
 #endif 
 
 #include "GameManager.h"
+#include "Player.h"
+#include "Constants.h"
 #include <iostream>
 #include "States/TestStateA.h"
 #include "States/TestStateB.h"
 using namespace std;
 
-const int SCREEN_WIDTH = 1200;
-const int SCREEN_HEIGHT = 800;
-
-void draw(SDL_Renderer* renderer) {
+void draw(SDL_Renderer* renderer, Player& player) {
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255); // background
+    player.draw();
     SDL_RenderPresent(renderer);
 }
 
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     }
 	if (!(IMG_Init(IMG_INIT_PNG)))
 		cout << "We're cooked 1.1 (Image initialization failed): " << IMG_GetError() << endl;
-	if (!(TTF_Init()))
+	if (TTF_Init() == -1)
 		cout << "We're cooked 1.2 (TTF initialization failed): " << TTF_GetError() << endl;
 
     SDL_Window* window = SDL_CreateWindow("Chef Like Engineers (Mech + EngSci 2T8)",
@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
     // gameManager.pushState(&b);
 
     int test = 0;
+    Player testPlayer(renderer, 600, 400, 50, 50, 0, 0, 1.0, "/Users/peter/Documents/C++/Chef Like Engineers/Assets/Player/a");
 
     while (run) {
         while (SDL_PollEvent(&event)) {
@@ -81,7 +82,7 @@ int main(int argc, char* argv[]) {
         //   run = false;
         // }
 
-        draw(renderer);
+        draw(renderer, testPlayer);
     }
 
     SDL_DestroyRenderer(renderer);
