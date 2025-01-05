@@ -4,7 +4,6 @@
   #include <SDL_image.h>
   #include <SDL_ttf.h>
   #include <SDL_mixer.h>
-  #include <iostream>
 #else
   #include <SDL2/SDL.h>
   #include <SDL2/SDL_image.h>
@@ -29,9 +28,9 @@ int main(int argc, char* argv[]) {
         cout << "We're cooked (can't even initialize the god damn library)" << endl;
     }
 	if (!(IMG_Init(IMG_INIT_PNG)))
-		cout << "We're cooked 1.1 (Image initialization failed): " << SDL_GetError() << endl;
+		cout << "We're cooked 1.1 (Image initialization failed): " << IMG_GetError() << endl;
 	if (!(TTF_Init()))
-		cout << "We're cooked 1.2 (TTF initialization failed): " << SDL_GetError() << endl;
+		cout << "We're cooked 1.2 (TTF initialization failed): " << TTF_GetError() << endl;
 
     SDL_Window* window = SDL_CreateWindow("Chef Like Engineers (Mech + EngSci 2T8)",
                                           SDL_WINDOWPOS_CENTERED,
