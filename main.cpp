@@ -11,7 +11,10 @@
   #include <SDL2/SDL_mixer.h>
 #endif 
 
+#include "GameManager.h"
 #include <iostream>
+#include "States/TestStateA.h"
+#include "States/TestStateB.h"
 using namespace std;
 
 const int SCREEN_WIDTH = 1200;
@@ -51,12 +54,33 @@ int main(int argc, char* argv[]) {
     bool run = true;
     SDL_Event event;
 
+    // GameManager gameManager;
+    // TestStateA a;
+    // TestStateB b;
+
+    // gameManager.pushState(&a);
+    // gameManager.pushState(&b);
+
+    int test = 0;
+
     while (run) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 run = false;
             }
         }
+
+        // gameManager.tick();
+        // test++;
+
+        // if(test == 10) {
+        //   gameManager.popState();
+        // }
+
+        // if(test == 20) {
+        //   run = false;
+        // }
+
         draw(renderer);
     }
 
