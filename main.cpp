@@ -62,13 +62,14 @@ int main(int argc, char* argv[]) {
     // gameManager.pushState(&b);
 
     int test = 0;
-    Player testPlayer(renderer, 600, 400, 50, 50, 0, 0, 1.0, "/Users/peter/Documents/C++/Chef Like Engineers/Assets/Player/a");
+    Player testPlayer(renderer, 600, 400, 50, 50, 0, 0, 5, 1.5, "/Users/peter/Documents/C++/Chef Like Engineers/Assets/Player/a");
 
     while (run) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 run = false;
             }
+            testPlayer.move(event);
         }
 
         // gameManager.tick();
@@ -81,7 +82,6 @@ int main(int argc, char* argv[]) {
         // if(test == 20) {
         //   run = false;
         // }
-
         draw(renderer, testPlayer);
     }
 
