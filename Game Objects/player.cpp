@@ -33,7 +33,7 @@ Player::~Player() {
 }
 
 void Player::draw() {
-    SDL_Rect rect = { x, y, width * scale, height * scale};
+    SDL_Rect rect = { x, y, static_cast<int>(width * scale), static_cast<int>(height * scale)};
     SDL_RenderCopyEx(renderer, currTexture, NULL, &rect, angle, NULL, SDL_FLIP_NONE);
     if (vx != 0 || vy != 0) {
         if (currImageDisplayedFrameCount >= FRAMES_PER_IMAGE) {
