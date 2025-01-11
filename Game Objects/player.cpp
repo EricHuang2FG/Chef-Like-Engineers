@@ -11,9 +11,11 @@
   #include <SDL2/SDL_mixer.h>
 #endif 
 
+#include <cmath>
 #include "Player.h"
 #include <iostream>
 #include <string>
+#include "../Constants.h"
 using namespace std;
 
 Player::Player(SDL_Renderer* renderer, int x, int y, int width, int height, int vx, int vy, int maxSpeed, float scale, string imageBasePath)
@@ -51,6 +53,19 @@ void Player::draw() {
     SDL_RenderCopyEx(renderer, currTexture, NULL, &rect, angle, NULL, SDL_FLIP_NONE);
 }
 
+void Player::setVelocityComponents() {
+    double angleRad = ((double) angle) * M_PI / 180.0;
+    vx = ((double) currSpeed) * asin(angleRad);
+    vy = -((double) currSpeed) * acos(angleRad); // negative goes up
+
+    if (x <= 0 || x + scaledWidth > SCREEN_WIDTH) {
+        vx = 0;
+    }
+    if (y <= 0 || y + scaledHeight > SCREEN_HEIGHT) {
+        vy = 0;
+    }
+}
+
 void Player::move(const SDL_Event& e) {
     if (e.type == SDL_KEYDOWN) {
         switch (e.key.keysym.sym) {
@@ -72,6 +87,11 @@ void Player::move(const SDL_Event& e) {
     } else {
         currSpeed = 0;
     }
+
+    setVelocityComponents();
+
+    x += vx;
+    y += vy;
     
     // incomplete
 }

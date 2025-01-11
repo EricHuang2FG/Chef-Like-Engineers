@@ -26,7 +26,7 @@ class Player: public GameObject {
         int currImageDisplayedFrameCount;
         const int FRAMES_PER_IMAGE;
         const int MAX_ANGULAR_VELOCITY;
-        int angle; // 0.0 points to the top of the screen
+        int angle; // 0 points to the top of the screen
     
     public:
         Player(SDL_Renderer* renderer, int x = SCREEN_WIDTH / 2, int y = SCREEN_HEIGHT / 2, int width = 50, int height = 50, int vx = 0, int vy = 0, int maxSpeed = 5, float scale = 1.0, string imageBasePath = "");
@@ -34,6 +34,8 @@ class Player: public GameObject {
         ~Player();
 
         void draw();
+
+        void setVelocityComponents();
 
         void move(const SDL_Event& e);
 };
