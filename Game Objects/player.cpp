@@ -36,7 +36,6 @@ Player::~Player() {
 
 void Player::draw() {
     SDL_Rect rect = { x, y, static_cast<int>(width * scale), static_cast<int>(height * scale)};
-    SDL_RenderCopyEx(renderer, currTexture, NULL, &rect, angle, NULL, SDL_FLIP_NONE);
     if (vx != 0 || vy != 0) {
         if (currImageDisplayedFrameCount >= FRAMES_PER_IMAGE) {
             currTexture = currTexture == textureImage1 ? textureImage2 : textureImage1;
@@ -47,16 +46,16 @@ void Player::draw() {
     } else {
         if (currTexture != textureImage1) {
             currTexture = textureImage1;
-            currImageDisplayedFrameCount = 0;
         }
+        currImageDisplayedFrameCount = 0;
     }
     SDL_RenderCopyEx(renderer, currTexture, NULL, &rect, angle, NULL, SDL_FLIP_NONE);
 }
 
 void Player::setVelocityComponents() {
-    double angleRad = ((double) angle) * M_PI / 180.0;
-    vx = ((double) currSpeed) * asin(angleRad);
-    vy = -((double) currSpeed) * acos(angleRad); // negative goes up
+    double angleRad = (fmod((double) angle, 360.0)) * M_PI / 180.0;
+    vx = ((double) currSpeed) * sin(angleRad);
+    vy = -((double) currSpeed) * cos(angleRad); // negative goes up
 
     if (x <= 0 || x + scaledWidth > SCREEN_WIDTH) {
         vx = 0;
@@ -68,24 +67,25 @@ void Player::setVelocityComponents() {
 
 void Player::move(const SDL_Event& e) {
     if (e.type == SDL_KEYDOWN) {
+        if (e.key.keysym.sym == SDLK_w) {
+            currSpeed = maxSpeed;
+        }
+        if (e.key.keysym.sym == SDLK_s) {
+            currSpeed = -maxSpeed;
+        }
+        if (e.key.keysym.sym == SDLK_a) {
+            angle -= MAX_ANGULAR_VELOCITY;
+        }
+        if (e.key.keysym.sym == SDLK_d) {
+            angle += MAX_ANGULAR_VELOCITY;
+        }
+    } else if (e.type == SDL_KEYUP) {
         switch (e.key.keysym.sym) {
             case SDLK_w:
-                currSpeed = maxSpeed;
-                break;
             case SDLK_s:
-                currSpeed = -maxSpeed;
-                break;
-            case SDLK_a:
-                angle -= MAX_ANGULAR_VELOCITY;
-                break;
-            case SDLK_d:
-                angle += MAX_ANGULAR_VELOCITY;
-                break;
-            default:
                 currSpeed = 0;
+                break;
         }
-    } else {
-        currSpeed = 0;
     }
 
     setVelocityComponents();
