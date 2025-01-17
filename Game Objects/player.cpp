@@ -19,7 +19,7 @@
 using namespace std;
 
 Player::Player(SDL_Renderer* renderer, int x, int y, int width, int height, int vx, int vy, int maxSpeed, float scale, string imageBasePath)
-    : GameObject(renderer, x, y, width, height, vx, vy, maxSpeed, scale), imageBasePath(imageBasePath), currImageDisplayedFrameCount(0),  FRAMES_PER_IMAGE(30), angle(0), MAX_ANGULAR_VELOCITY(30.0) {
+    : GameObject(renderer, x, y, width, height, vx, vy, maxSpeed, scale), imageBasePath(imageBasePath), currImageDisplayedFrameCount(0),  FRAMES_PER_IMAGE(60), angle(0), MAX_ANGULAR_VELOCITY(30.0) {
         textureImage1 = loadImage(imageBasePath + "1.png");
         textureImage2 = loadImage(imageBasePath + "2.png");
         currTexture = textureImage1;
@@ -57,12 +57,10 @@ void Player::setVelocityComponents() {
     vx = ((double) currSpeed) * sin(angleRad);
     vy = -((double) currSpeed) * cos(angleRad); // negative goes up
 
-    if (x <= 0 || x + scaledWidth > SCREEN_WIDTH) {
-        vx = 0;
-    }
-    if (y <= 0 || y + scaledHeight > SCREEN_HEIGHT) {
-        vy = 0;
-    }
+    if (x < 0) x = 0;
+    if (x + scaledWidth > SCREEN_WIDTH) x = SCREEN_WIDTH - scaledWidth;
+    if (y < 0) y = 0;
+    if (y + scaledHeight > SCREEN_HEIGHT) y = SCREEN_HEIGHT - scaledHeight;
 }
 
 void Player::move(const SDL_Event& e) {
@@ -92,6 +90,5 @@ void Player::move(const SDL_Event& e) {
 
     x += vx;
     y += vy;
-    
-    // incomplete
+
 }
