@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     // gameManager.pushState(&b);
 
     int test = 0;
-    Player testPlayer(renderer, 600, 400, 50, 50, 0, 0, 5, 1.5, "./Assets/Player/a");
+    Player testPlayer(renderer, 600, 400, 50, 50, 0, 0, 10, 1.5, "./Assets/Player/a");
 
     while (run) {
         while (SDL_PollEvent(&event)) {
