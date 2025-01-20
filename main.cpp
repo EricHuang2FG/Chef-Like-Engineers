@@ -19,9 +19,14 @@
 #include "States/TestStateB.h"
 using namespace std;
 
+const SDL_Rect backgroundRect =  { 0, 0, 1200, 800};
+SDL_Texture* testBackground;
+
 void draw(SDL_Renderer* renderer, Player& player) {
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255); // background
+    
+    SDL_RenderCopyEx(renderer, testBackground, NULL, &backgroundRect, 0, NULL, SDL_FLIP_NONE);
     player.draw();
     SDL_RenderPresent(renderer);
 }
@@ -50,6 +55,8 @@ int main(int argc, char* argv[]) {
     if (!renderer) {
         cout << "We're cooked 3.0 (can't load the renderer)" << SDL_GetError() << endl;
     }
+
+    testBackground = IMG_LoadTexture(renderer, ("./Assets/Backgrounds/pit.png"));
 
     bool run = true;
     SDL_Event event;
